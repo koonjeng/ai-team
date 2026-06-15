@@ -5,12 +5,13 @@
 - GET /api/hello?name= -> demo เดิม
 """
 import json
+from datetime import datetime
 from pathlib import Path
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
 
 ROOT = Path(__file__).parent
-INDEX_HTML = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
+STATE = ROOT / "state.json"
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -23,14 +24,40 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         parsed = urlparse(self.path)
         if parsed.path == "/":
-            self._send(200, INDEX_HTML, "text/html")
+            # โหลด HTML สดทุกครั้ง แก้หน้าแล้วรีเฟรชเห็นเลย
+            self._send(200, (ROOT / "web" / "index.html").read_text(encoding="utf-8"), "text/html")
         elif parsed.path == "/api/state":
-            # อ่านสดทุกครั้ง เพื่อให้แก้ state.json แล้วเห็นผลทันทีโดยไม่ต้องรีสตาร์ท
-            data = (ROOT / "state.json").read_text(encoding="utf-8")
-            self._send(200, data, "application/json")
+            self._send(200, STATE.read_text(encoding="utf-8"), "application/json")
         elif parsed.path == "/api/hello":
             name = (parse_qs(parsed.query).get("name", [""])[0]).strip() or "เพื่อน"
             self._send(200, json.dumps({"message": f"สวัสดี {name}"}, ensure_ascii=False), "application/json")
+        else:
+            self._send(404, json.dumps({"error": "not found"}, ensure_ascii=False), "application/json")
+
+    def do_POST(self):
+        parsed = urlparse(self.path)
+        if parsed.path == "/api/order":
+            # รับคำสั่งจากช่องแชท -> บันทึกลงคิวงานของเลขา + ฟีดกิจกรรม
+            length = int(self.headers.get("Content-Length", 0))
+            body = json.loads(self.rfile.read(length) or b"{}")
+            text = (body.get("text") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "empty"}, ensure_ascii=False), "application/json")
+                return
+            data = json.loads(STATE.read_text(encoding="utf-8"))
+            now = datetime.now().strftime("%H:%M")
+            data.setdefault("orders", []).insert(0, {"time": now, "text": text, "done": False})
+            data["orders"] = data["orders"][:30]
+            data.setdefault("activity", []).insert(0, {"time": now, "who": "🧑 เจ้านาย", "text": "สั่งงาน: " + text})
+            data["activity"] = data["activity"][:50]
+            # ตั้งเลขาให้รับงานทันที
+            for a in data["agents"]:
+                if a["id"] == "secretary":
+                    a["status"] = "working"
+                    a["task"] = "รับโจทย์ใหม่: " + text
+                    a["thought"] = "กำลังแตกงานและมอบหมายให้ทีม"
+            STATE.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            self._send(200, json.dumps({"ok": True}, ensure_ascii=False), "application/json")
         else:
             self._send(404, json.dumps({"error": "not found"}, ensure_ascii=False), "application/json")
 
