@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Team — ทีม AI ครบวงจร</title>
+<style>
+  :root{
+    --bg:#0b1020; --card:#141b30; --line:#243049;
+    --text:#e8edf7; --muted:#9aa7c2; --brand:#6366f1; --brand2:#22d3ee;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+  a{color:inherit;text-decoration:none}
+
+  /* nav */
+  nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
+  .logo{font-weight:800;font-size:1.2rem}
+  .logo span{background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nav-links{display:flex;gap:24px;font-size:.95rem;color:var(--muted)}
+  .nav-links a:hover{color:var(--text)}
+
+  /* hero */
+  .hero{text-align:center;padding:72px 0 56px}
+  .badge{display:inline-block;font-size:.8rem;color:var(--brand2);border:1px solid var(--line);
+    padding:6px 14px;border-radius:999px;margin-bottom:22px}
+  .hero h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.15;font-weight:800;letter-spacing:-.5px}
+  .hero h1 span{background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{color:var(--muted);font-size:1.15rem;max-width:600px;margin:20px auto 32px}
+  .cta{display:inline-flex;gap:14px;flex-wrap:wrap;justify-content:center}
+  .btn{padding:13px 26px;border-radius:12px;font-weight:600;font-size:1rem;cursor:pointer;border:none}
+  .btn-main{background:linear-gradient(90deg,var(--brand),var(--brand2));color:#06101f}
+  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+  .btn:hover{transform:translateY(-2px);transition:.2s}
+
+  /* sections */
+  section{padding:56px 0}
+  .eyebrow{color:var(--brand2);font-weight:600;font-size:.85rem;text-align:center;letter-spacing:1px;text-transform:uppercase}
+  h2{text-align:center;font-size:clamp(1.6rem,4vw,2.2rem);margin:8px 0 10px}
+  .sub{text-align:center;color:var(--muted);max-width:560px;margin:0 auto 40px}
+
+  .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px}
+  .card:hover{border-color:var(--brand)}
+  .card .ico{font-size:1.8rem;margin-bottom:12px}
+  .card h3{font-size:1.1rem;margin-bottom:6px}
+  .card p{color:var(--muted);font-size:.95rem}
+
+  /* flow */
+  .steps{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));counter-reset:s}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;position:relative}
+  .step::before{counter-increment:s;content:counter(s);position:absolute;top:-14px;left:22px;
+    width:30px;height:30px;border-radius:50%;background:linear-gradient(90deg,var(--brand),var(--brand2));
+    color:#06101f;font-weight:800;display:grid;place-items:center}
+  .step h4{margin:8px 0 4px}.step p{color:var(--muted);font-size:.9rem}
+
+  /* demo */
+  .demo{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px;text-align:center;max-width:480px;margin:0 auto}
+  .demo input{padding:11px 14px;border-radius:10px;border:1px solid var(--line);background:#0c1224;color:var(--text);font-size:1rem;width:60%}
+  .demo button{padding:11px 20px;border-radius:10px;border:none;background:var(--brand);color:#fff;font-weight:600;cursor:pointer;margin-left:8px}
+  .demo button:hover{background:#4f46e5}
+  #result{margin-top:18px;font-size:1.2rem;min-height:1.4em}
+  #result.error{color:#f87171}
+
+  footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav>
+    <div class="logo">⚡ AI<span>Team</span></div>
+    <div class="nav-links">
+      <a href="#services">บริการ</a>
+      <a href="#team">ทีม</a>
+      <a href="#flow">ขั้นตอน</a>
+      <a href="#demo">ทดลอง</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <span class="badge">● ทีม AI พร้อมรับงาน 24 ชม.</span>
+    <h1>ทีม AI ที่ทำงาน<br><span>ครบวงจรแทนคุณ</span></h1>
+    <p>มอบหมายงานให้ "เลขา AI" ครั้งเดียว — แล้วทีมพนักงาน AI ทั้ง Frontend, Backend,
+       เทรนโมเดล และตรวจสอบคุณภาพ จะทำงานร่วมกันจนเสร็จ พร้อมให้คุณอนุมัติก่อนส่งมอบ</p>
+    <div class="cta">
+      <button class="btn btn-main" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">ทดลองใช้ฟรี</button>
+      <a class="btn btn-ghost" href="#services">ดูบริการ</a>
+    </div>
+  </header>
+
+  <section id="services">
+    <div class="eyebrow">บริการของเรา</div>
+    <h2>ครบทุกขั้นตอนการพัฒนา</h2>
+    <p class="sub">ตั้งแต่ออกแบบ พัฒนา เทรนโมเดล ไปจนถึงตรวจสอบและส่งมอบ</p>
+    <div class="grid">
+      <div class="card"><div class="ico">🎨</div><h3>พัฒนา Frontend</h3><p>หน้าเว็บสวย ใช้ง่าย รองรับทุกอุปกรณ์</p></div>
+      <div class="card"><div class="ico">⚙️</div><h3>พัฒนา Backend</h3><p>API ฐานข้อมูล และระบบหลังบ้านที่มั่นคงปลอดภัย</p></div>
+      <div class="card"><div class="ico">🧠</div><h3>เทรนโมเดล AI</h3><p>เตรียมข้อมูล เทรน และวัดผลด้วยตัวเลขจริง</p></div>
+      <div class="card"><div class="ico">🔍</div><h3>ตรวจสอบคุณภาพ</h3><p>ทดสอบจริงทุกฟีเจอร์ก่อนส่งมอบให้คุณ</p></div>
+    </div>
+  </section>
+
+  <section id="team">
+    <div class="eyebrow">ทีมงาน</div>
+    <h2>พบกับทีม AI ของคุณ</h2>
+    <p class="sub">แต่ละคนมีความเชี่ยวชาญเฉพาะทาง ทำงานร่วมกันภายใต้การประสานงานของเลขา</p>
+    <div class="grid">
+      <div class="card"><div class="ico">👔</div><h3>เลขา</h3><p>รับโจทย์ แตกงาน มอบหมาย และดูแลให้ทุกอย่างเสร็จตามเป้า</p></div>
+      <div class="card"><div class="ico">🎨</div><h3>Frontend</h3><p>ออกแบบและพัฒนาหน้าเว็บที่สวยและใช้งานง่าย</p></div>
+      <div class="card"><div class="ico">⚙️</div><h3>Backend</h3><p>สร้างระบบหลังบ้าน API และจัดการข้อมูล</p></div>
+      <div class="card"><div class="ico">🧠</div><h3>Trainer</h3><p>เทรนและประเมินโมเดล AI ให้แม่นยำ</p></div>
+      <div class="card"><div class="ico">🔍</div><h3>Reviewer</h3><p>ตรวจสอบคุณภาพและความปลอดภัยก่อนส่งมอบ</p></div>
+    </div>
+  </section>
+
+  <section id="flow">
+    <div class="eyebrow">ขั้นตอน</div>
+    <h2>ทำงานอย่างไร</h2>
+    <p class="sub">ง่ายแค่ 4 ขั้นตอน จากโจทย์สู่ผลงานที่พร้อมใช้</p>
+    <div class="steps">
+      <div class="step"><h4>มอบหมายงาน</h4><p>บอกเลขาว่าต้องการอะไร</p></div>
+      <div class="step"><h4>ทีมลงมือ</h4><p>พนักงาน AI ทำงานร่วมกัน</p></div>
+      <div class="step"><h4>ตรวจสอบ</h4><p>Reviewer ทดสอบจริงทุกจุด</p></div>
+      <div class="step"><h4>คุณอนุมัติ</h4><p>กด Accept ก่อนส่งมอบ</p></div>
+    </div>
+  </section>
+
+  <section id="demo">
+    <div class="eyebrow">ทดลอง</div>
+    <h2>ลองทักทายทีมของเรา</h2>
+    <p class="sub">พิมพ์ชื่อแล้วกดปุ่ม — เชื่อมต่อ API จริงของระบบ</p>
+    <div class="demo">
+      <input id="name" placeholder="ใส่ชื่อของคุณ" value="โลก">
+      <button id="go">ทักทาย</button>
+      <div id="result"></div>
+    </div>
+  </section>
+
+</div>
+<footer>© 2026 AI Team — สร้างโดยทีม AI ครบวงจร 🤖</footer>
+
+<script>
+  const out = document.getElementById('result');
+  document.getElementById('go').addEventListener('click', async () => {
+    const name = document.getElementById('name').value.trim();
+    out.textContent = 'กำลังโหลด...'; out.className = '';
+    try {
+      const r = await fetch('/api/hello?name=' + encodeURIComponent(name));
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      out.textContent = (await r.json()).message + ' 👋';
+    } catch (e) {
+      out.textContent = 'เกิดข้อผิดพลาด: ' + e.message; out.className = 'error';
+    }
+  });
+</script>
+</body>
+</html>
