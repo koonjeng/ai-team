@@ -1,0 +1,46 @@
+{
+  "project": "AI Team Workspace",
+  "agents": [
+    {
+      "id": "secretary", "name": "เลขา", "icon": "👔", "role": "ประสานงาน/มอบหมาย",
+      "status": "working",
+      "task": "แตกงาน 'ระบบ login' และติดตามทีม",
+      "thought": "รอ backend ส่ง API contract ก่อน ค่อยปล่อย frontend",
+      "progress": 60
+    },
+    {
+      "id": "frontend", "name": "Frontend", "icon": "🎨", "role": "UI/UX",
+      "status": "waiting",
+      "task": "หน้า login form",
+      "thought": "ติดรอ endpoint /api/login จาก backend อยู่",
+      "progress": 20
+    },
+    {
+      "id": "backend", "name": "Backend", "icon": "⚙️", "role": "API/DB/logic",
+      "status": "working",
+      "task": "POST /api/login + validate + token",
+      "thought": "กำลังเขียน validation รหัสผ่านและออกแบบ token",
+      "progress": 75
+    },
+    {
+      "id": "trainer", "name": "Trainer", "icon": "🧠", "role": "เทรน/ประเมินโมเดล",
+      "status": "idle",
+      "task": "-",
+      "thought": "ว่าง รองานเทรนรอบถัดไป",
+      "progress": 0
+    },
+    {
+      "id": "reviewer", "name": "Reviewer", "icon": "🔍", "role": "QA/ตรวจก่อน deploy",
+      "status": "idle",
+      "task": "รอรับงานตรวจ",
+      "thought": "เตรียม checklist ทดสอบ login (happy path + รหัสผิด)",
+      "progress": 0
+    }
+  ],
+  "activity": [
+    {"time": "10:42", "who": "👔 เลขา", "text": "มอบงาน 'POST /api/login' ให้ backend"},
+    {"time": "10:40", "who": "👔 เลขา", "text": "แตกงาน 'ระบบ login' เป็น 3 task ย่อย"},
+    {"time": "10:38", "who": "🔍 Reviewer", "text": "ร่าง checklist ทดสอบเสร็จ"},
+    {"time": "10:35", "who": "⚙️ Backend", "text": "ประกาศ API contract draft ให้ frontend"}
+  ]
+}
