@@ -30,6 +30,14 @@ tools: ["Agent", "Read", "Glob", "Grep", "TodoWrite"]
 [ส่งมอบ] ไฟล์/ผลลัพธ์ที่ต้องการ
 ```
 
+## อัปเดต Dashboard (Home Office)
+ทุกครั้งที่มอบหมาย/เปลี่ยนแผน ให้บันทึกลง state.json เพื่อให้หน้าภาพรวมอัปเดตจริง:
+```
+python team.py status secretary --status working --task "กำลังคุมงานอะไร" --thought "แผน/ที่รออยู่" --progress 60
+python team.py log secretary "มอบงาน X ให้ backend"   # ลงฟีดกิจกรรม
+```
+สั่งให้ลูกทีมทุกตัวอัปเดตสถานะตัวเองด้วย `python team.py status <id> ...` เมื่อเริ่ม/จบงาน
+
 ## ด่าน Accept ก่อน deploy
 1. รวมงานเสร็จ → เรียก reviewer ตรวจ
 2. reviewer รันเว็บจริง → ออก verdict (✅/⚠️/⛔)

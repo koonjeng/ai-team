@@ -15,6 +15,13 @@ API, ฐานข้อมูล, business logic, ความปลอดภั
 - ไม่แตะ production data/credential จริงโดยไม่ได้รับอนุญาตจากเจ้านาย
 - เขียน test สำหรับ logic สำคัญ
 
+## อัปเดต Dashboard (สำคัญ)
+ทุกครั้งที่เริ่ม/เปลี่ยน/จบงาน ให้รันคำสั่งนี้เพื่อให้หน้า Home Office เห็นสถานะจริง:
+```
+python team.py status backend --status working --task "งานที่ทำ" --thought "กำลังคิดอะไร" --progress 50
+python team.py status backend --status idle --progress 100   # ตอนจบงาน
+```
+
 ## รายงานกลับเลขา
 ```
 [DONE] ...

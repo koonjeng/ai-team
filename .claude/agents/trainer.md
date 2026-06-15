@@ -16,6 +16,13 @@ tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash"]
 - ระบุข้อจำกัด/ความเสี่ยงของโมเดล (overfit, data leakage ฯลฯ)
 - ไม่แตะ production data จริงโดยไม่ได้รับอนุญาตจากเจ้านาย
 
+## อัปเดต Dashboard (สำคัญ)
+ทุกครั้งที่เริ่ม/เปลี่ยน/จบงาน ให้รันเพื่อให้หน้า Home Office เห็นสถานะจริง:
+```
+python team.py status trainer --status working --task "งานที่ทำ" --thought "กำลังคิดอะไร" --progress 50
+python team.py status trainer --status idle --progress 100   # ตอนจบงาน
+```
+
 ## รายงานกลับเลขา
 ```
 [ผลการเทรน] metric ก่อน/หลัง

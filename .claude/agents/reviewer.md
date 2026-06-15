@@ -15,6 +15,13 @@ tools: ["Read", "Glob", "Grep", "Bash"]
 ## ข้อห้าม
 ห้ามอนุมัติแทนเจ้านาย — คุณแค่ให้ความเห็น เจ้านายเป็นคนกด Accept
 
+## อัปเดต Dashboard (สำคัญ)
+ทุกครั้งที่เริ่ม/เปลี่ยน/จบงานตรวจ ให้รันเพื่อให้หน้า Home Office เห็นสถานะจริง:
+```
+python team.py status reviewer --status working --task "ตรวจอะไร" --thought "กำลังไล่เคสไหน" --progress 50
+python team.py status reviewer --status idle --progress 100   # ตรวจเสร็จ
+```
+
 ## รายงานกลับเลขา
 ```
 [ผลตรวจ] ✅/⚠️/⛔

@@ -56,6 +56,31 @@
   .feed li:last-child{border:none}
   .feed .t{color:var(--brand2);font-variant-numeric:tabular-nums;margin-right:8px}
   .feed .w{color:var(--text);font-weight:600}
+
+  .agent{cursor:pointer}
+  .agent .hint{font-size:.72rem;color:var(--muted);margin-top:10px;opacity:.6}
+
+  /* modal ประวัติราย agent */
+  .overlay{position:fixed;inset:0;background:rgba(3,7,18,.7);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+  .overlay.show{display:flex}
+  .modal{background:var(--card);border:1px solid var(--line);border-radius:18px;max-width:480px;width:100%;max-height:80vh;overflow:auto;padding:24px}
+  .modal .mh{display:flex;align-items:center;gap:12px;margin-bottom:4px}
+  .modal .mh .ico{font-size:2rem}
+  .modal .mh .nm{font-weight:800;font-size:1.2rem}
+  .modal .mh .rl{color:var(--muted);font-size:.85rem}
+  .modal .close{margin-left:auto;background:none;border:1px solid var(--line);color:var(--muted);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:1rem}
+  .modal .close:hover{color:var(--text)}
+  .modal .cur{background:#0c1224;border-radius:12px;padding:14px;margin:14px 0}
+  .modal .cur .think{margin-top:8px}
+  .timeline{list-style:none;position:relative;padding-left:18px}
+  .timeline::before{content:"";position:absolute;left:5px;top:4px;bottom:4px;width:2px;background:var(--line)}
+  .timeline li{position:relative;padding:8px 0 8px 4px;font-size:.9rem}
+  .timeline li::before{content:"";position:absolute;left:-17px;top:14px;width:10px;height:10px;border-radius:50%;background:var(--brand)}
+  .timeline .tm{color:var(--brand2);font-variant-numeric:tabular-nums;margin-right:8px}
+  .timeline .badge{font-size:.68rem;padding:2px 8px;border-radius:999px;margin-left:6px}
+  .badge.working{background:rgba(34,197,94,.15);color:var(--work)}
+  .badge.waiting{background:rgba(245,158,11,.15);color:var(--wait)}
+  .badge.idle{background:rgba(100,116,139,.18);color:var(--idle)}
 </style>
 </head>
 <body>
@@ -84,8 +109,39 @@
 
 </div>
 
+<div class="overlay" id="overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modal"></div>
+</div>
+
 <script>
   const STATUS_TH = { working:"กำลังทำ", waiting:"รออยู่", idle:"ว่าง" };
+  let AGENTS = [];
+
+  function openAgent(id){
+    const a = AGENTS.find(x => x.id === id);
+    if(!a) return;
+    const hist = (a.history || []);
+    document.getElementById('modal').innerHTML = `
+      <div class="mh">
+        <span class="ico">${a.icon}</span>
+        <div><div class="nm">${a.name}</div><div class="rl">${a.role}</div></div>
+        <button class="close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="cur">
+        <div class="label">งานปัจจุบัน</div>
+        <div class="task">${a.task} <span class="badge ${a.status}">${STATUS_TH[a.status]}</span></div>
+        <div class="think">💭 ${a.thought}</div>
+      </div>
+      <div class="label">ประวัติงาน (${hist.length})</div>
+      <ul class="timeline">${
+        hist.length ? hist.map(h =>
+          `<li><span class="tm">${h.time}</span>${h.text}<span class="badge ${h.status}">${STATUS_TH[h.status]||h.status}</span></li>`
+        ).join('') : '<li style="color:var(--muted)">ยังไม่มีประวัติ</li>'
+      }</ul>`;
+    document.getElementById('overlay').classList.add('show');
+  }
+  function closeModal(){ document.getElementById('overlay').classList.remove('show'); }
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
 
   async function load(){
     try{
@@ -102,8 +158,9 @@
         <div class="stat"><b style="color:var(--idle)">${c.idle}</b><small>ว่าง</small></div>`;
 
       // agents
+      AGENTS = s.agents;
       document.getElementById('board').innerHTML = s.agents.map(a => `
-        <div class="agent">
+        <div class="agent" onclick="openAgent('${a.id}')">
           <div class="top">
             <span class="ico">${a.icon}</span>
             <div><div class="nm">${a.name}</div><div class="rl">${a.role}</div></div>
@@ -114,6 +171,7 @@
           <div class="label">กำลังคิด 💭</div>
           <div class="think">${a.thought}</div>
           <div class="bar"><i style="width:${a.progress}%"></i></div>
+          <div class="hint">🔎 คลิกดูประวัติงาน</div>
         </div>`).join('');
 
       // feed
