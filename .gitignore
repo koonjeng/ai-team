@@ -4,3 +4,9 @@ __pycache__/
 .env
 *.db
 .DS_Store
+
+# token อนุญาตแก้ไฟล์หลัก (local เท่านั้น)
+.claude/.allow-core
+# ผลงาน agent ใน workspace (เก็บแค่โฟลเดอร์)
+workspace/*
+!workspace/.gitkeep

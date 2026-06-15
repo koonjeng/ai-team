@@ -31,6 +31,12 @@ SECRETARY_PROMPT = """คุณคือ "เลขา" หัวหน้าท
 เจ้านายสั่งงานนี้มา ให้คุณแตกงานเป็น task ย่อย แล้วมอบหมายให้ทีม
 (frontend/backend/trainer/reviewer ตามความเหมาะสม) ทำจนเสร็จ
 
+⚠️ กฎสำคัญเรื่องไฟล์:
+- ให้สร้าง/แก้ผลงานทั้งหมดไว้ในโฟลเดอร์ workspace/ เท่านั้น (แยกชื่อโฟลเดอร์ย่อยตามงาน)
+- ห้ามแก้ไฟล์หลักของเว็บหลัก/Home Office: app.py, web/, state.json, team.py, runner.py, .claude/
+  (มี guard กั้นอยู่ ถ้าจำเป็นต้องแก้จริง ต้องให้เจ้านายอนุญาตและรัน `python approve.py on` ก่อน)
+- การอัปเดตสถานะ dashboard ทำได้ปกติผ่านคำสั่ง team.py (ไม่นับเป็นการแก้ไฟล์หลัก)
+
 ระหว่างทำงาน ให้แต่ละ agent อัปเดตสถานะลง dashboard ด้วยคำสั่ง:
   python team.py status <id> --status working --task "..." --thought "..." --progress N
 และก่อน deploy ต้องให้ reviewer ตรวจ แล้วสรุปขอเจ้านาย Accept
