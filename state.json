@@ -1,113 +1,36 @@
 {
   "project": "AI Team Workspace",
+  "messages": [
+    {
+      "role": "secretary",
+      "time": "09:00",
+      "text": "สวัสดีครับเจ้านาย 👔 ผมเป็นเลขาทีม AI พิมพ์สั่งงานหรือถามอะไรได้เลย เช่น \"ทำหน้า pricing 3 แพ็กเกจ\" เดี๋ยวผมให้ทีมลงมือแล้วรายงานกลับในแชทนี้"
+    }
+  ],
+  "orders": [],
   "agents": [
     {
-      "id": "secretary",
-      "name": "เลขา",
-      "icon": "👔",
-      "role": "ประสานงาน/มอบหมาย",
-      "status": "working",
-      "task": "แตกงาน 'ระบบ login' และติดตามทีม",
-      "thought": "รอ backend ส่ง API contract ก่อน ค่อยปล่อย frontend",
-      "progress": 60
+      "id": "secretary", "name": "เลขา", "icon": "👔", "role": "ประสานงาน/มอบหมาย",
+      "status": "idle", "task": "รอรับงานจากเจ้านาย", "thought": "พร้อมรับคำสั่ง", "progress": 0
     },
     {
-      "id": "frontend",
-      "name": "Frontend",
-      "icon": "🎨",
-      "role": "UI/UX",
-      "status": "waiting",
-      "task": "หน้า login form",
-      "thought": "ติดรอ endpoint /api/login จาก backend อยู่",
-      "progress": 20,
-      "history": [
-        {
-          "time": "15:04",
-          "status": "waiting",
-          "text": "เริ่มต่อหน้า login กับ /api/login แล้ว"
-        }
-      ]
+      "id": "frontend", "name": "Frontend", "icon": "🎨", "role": "UI/UX",
+      "status": "idle", "task": "-", "thought": "ว่าง", "progress": 0
     },
     {
-      "id": "backend",
-      "name": "Backend",
-      "icon": "⚙️",
-      "role": "API/DB/logic",
-      "status": "working",
-      "task": "POST /api/login + JWT",
-      "thought": "ออก token อายุ 24 ชม.",
-      "progress": 90,
-      "history": [
-        {
-          "time": "15:04",
-          "status": "working",
-          "text": "POST /api/login + JWT"
-        }
-      ]
+      "id": "backend", "name": "Backend", "icon": "⚙️", "role": "API/DB/logic",
+      "status": "idle", "task": "-", "thought": "ว่าง", "progress": 0
     },
     {
-      "id": "trainer",
-      "name": "Trainer",
-      "icon": "🧠",
-      "role": "เทรน/ประเมินโมเดล",
-      "status": "idle",
-      "task": "-",
-      "thought": "ว่าง รองานเทรนรอบถัดไป",
-      "progress": 0
+      "id": "trainer", "name": "Trainer", "icon": "🧠", "role": "เทรน/ประเมินโมเดล",
+      "status": "idle", "task": "-", "thought": "ว่าง", "progress": 0
     },
     {
-      "id": "reviewer",
-      "name": "Reviewer",
-      "icon": "🔍",
-      "role": "QA/ตรวจก่อน deploy",
-      "status": "working",
-      "task": "ทดสอบ login",
-      "thought": "ไล่เคส happy path + รหัสผิด",
-      "progress": 30,
-      "history": [
-        {
-          "time": "15:04",
-          "status": "working",
-          "text": "ทดสอบ login"
-        }
-      ]
+      "id": "reviewer", "name": "Reviewer", "icon": "🔍", "role": "QA/ตรวจก่อน deploy",
+      "status": "idle", "task": "-", "thought": "ว่าง", "progress": 0
     }
   ],
   "activity": [
-    {
-      "time": "15:04",
-      "who": "🔍 Reviewer",
-      "text": "สถานะ→working · งาน: ทดสอบ login · 30%"
-    },
-    {
-      "time": "15:04",
-      "who": "🎨 Frontend",
-      "text": "เริ่มต่อหน้า login กับ /api/login แล้ว"
-    },
-    {
-      "time": "15:04",
-      "who": "⚙️ Backend",
-      "text": "สถานะ→working · งาน: POST /api/login + JWT · 90%"
-    },
-    {
-      "time": "10:42",
-      "who": "👔 เลขา",
-      "text": "มอบงาน 'POST /api/login' ให้ backend"
-    },
-    {
-      "time": "10:40",
-      "who": "👔 เลขา",
-      "text": "แตกงาน 'ระบบ login' เป็น 3 task ย่อย"
-    },
-    {
-      "time": "10:38",
-      "who": "🔍 Reviewer",
-      "text": "ร่าง checklist ทดสอบเสร็จ"
-    },
-    {
-      "time": "10:35",
-      "who": "⚙️ Backend",
-      "text": "ประกาศ API contract draft ให้ frontend"
-    }
+    {"time": "09:00", "who": "👔 เลขา", "text": "ทีมพร้อมรับงาน"}
   ]
 }
