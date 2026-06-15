@@ -16,6 +16,33 @@
 
 ---
 
+## 🖥️ Home Office Dashboard (จอภาพรวม + ช่องสั่งงาน)
+```bash
+python app.py        # เปิด http://127.0.0.1:8000  (ต้องเปิดผ่าน server นี้ ไม่ใช่เปิดไฟล์ตรงๆ)
+```
+- เห็นสถานะ agent ทุกตัว (ทำอะไร/คิดอะไร/progress) อัปเดตทุก 3 วิ
+- คลิกการ์ด agent = ดูประวัติงาน (timeline)
+- มีช่องพิมพ์สั่งงาน → คำสั่งเข้าคิว `orders` ใน `state.json`
+
+## 🔌 ตัวเชื่อมอัตโนมัติ (runner) — พิมพ์บนเว็บแล้ว agent ทำงานจริง
+ติดตั้ง Claude Code CLI ครั้งเดียว:
+```bash
+npm install -g @anthropic-ai/claude-code
+claude            # login ครั้งแรก
+```
+แล้วเปิด runner ค้างไว้ (อีกหน้าต่าง):
+```bash
+python runner.py            # เฝ้าคิว orders ตลอด เรียกเลขา+ทีมทำงานจริง
+python runner.py --once     # เคลียร์คิวที่ค้างรอบเดียว
+python runner.py --dry-run  # ทดสอบ ไม่เรียก claude จริง
+```
+**ระบบครบวง:** พิมพ์สั่งบน dashboard → runner หยิบจากคิว → Claude Code สวมบทเลขา → ทีมทำงาน +
+อัปเดตสถานะกลับ dashboard สดๆ → reviewer ตรวจ → ขอ Accept
+
+> ตัว agent ทำงานจริงผ่าน Claude Code (CLI) เท่านั้น — หน้าเว็บเป็นจอมอนิเตอร์ + กล่องสั่งงาน
+
+---
+
 ## ตัวอย่างที่ 1 — งานเล็ก (ทดสอบ flow เร็ว ๆ)
 
 ```
