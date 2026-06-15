@@ -36,8 +36,8 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         parsed = urlparse(self.path)
-        if parsed.path == "/api/order":
-            # รับคำสั่งจากช่องแชท -> บันทึกลงคิวงานของเลขา + ฟีดกิจกรรม
+        if parsed.path in ("/api/order", "/api/chat"):
+            # รับข้อความจากแชท -> เก็บประวัติแชท + เข้าคิวงาน + ให้เลขาตอบรับทันที
             length = int(self.headers.get("Content-Length", 0))
             body = json.loads(self.rfile.read(length) or b"{}")
             text = (body.get("text") or "").strip()
@@ -46,11 +46,15 @@ class Handler(BaseHTTPRequestHandler):
                 return
             data = json.loads(STATE.read_text(encoding="utf-8"))
             now = datetime.now().strftime("%H:%M")
+            msgs = data.setdefault("messages", [])
+            msgs.append({"role": "user", "time": now, "text": text})
+            msgs.append({"role": "secretary", "time": now,
+                         "text": f"รับทราบครับ 👔 กำลังให้ทีมลงมือ \"{text}\" — เดี๋ยวเสร็จจะรายงานในแชทนี้"})
+            data["messages"] = msgs[-50:]
             data.setdefault("orders", []).insert(0, {"time": now, "text": text, "done": False})
             data["orders"] = data["orders"][:30]
             data.setdefault("activity", []).insert(0, {"time": now, "who": "🧑 เจ้านาย", "text": "สั่งงาน: " + text})
             data["activity"] = data["activity"][:50]
-            # ตั้งเลขาให้รับงานทันที
             for a in data["agents"]:
                 if a["id"] == "secretary":
                     a["status"] = "working"
